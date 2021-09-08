@@ -1,0 +1,16 @@
+{{- if .IsNamedParams -}}
+{{- $.Scratch.Set "class"  (.Get "class") -}}
+{{- $.Scratch.Set "title" (.Get "title") -}}
+{{- else -}}
+{{- $.Scratch.Set "class"  (.Get 0) -}}
+{{- $.Scratch.Set "title" (.Get 1) -}}
+{{- end -}}
+
+{{- $class   := $.Scratch.Get "class" -}}
+{{- $title  := $.Scratch.Get "title" -}}
+{{- $anchor := urlize $title -}}
+
+<details class="{{ $class }}">
+  <summary id="{{ $anchor }}">{{ $title }}</summary>
+  {{ .Inner | markdownify }}
+</details>

@@ -1,0 +1,15 @@
+name: hugo-platen
+license: MIT
+licenselink: https://github.com/platenio/hugo-platen/blob/main/LICENSE
+description: 'Platen core theme for Hugo: build websites for digital tabletop games'
+homepage: http://example.com/
+tags: []
+features: []
+min_version: 0.87.0
+author:
+  name: Platen Cooperative
+  homepage: https://platen.io
+original:
+  name: 'hugo-book'
+  homepage: https://hugo-book-demo.netlify.app
+  repo: https://github.com/alex-shpak/hugo-book
