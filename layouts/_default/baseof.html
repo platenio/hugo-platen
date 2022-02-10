@@ -9,6 +9,7 @@
 
     {{ $injectedClass :=  "" }}
     {{ $currentLink := .Permalink }}
+    {{ $currentParams := .Params }}
     {{ $bookSection := default "docs" .Site.Params.BookSection  }}
 
     {{ if eq $bookSection "*" }}
@@ -23,10 +24,14 @@
             {{ $section := index $parts 1 }}
             {{ $section = replace $section ".md" "" }}
             {{ if in $currentLink $section }}
-                {{ with $page.Params.cssClass }}
-                    {{ $injectedClass = $page.Params.cssClass }}
+                {{ with $currentParams.cssClass }}
+                    {{ $injectedClass = $currentParams.cssClass }}
                 {{ else }}
-                    {{ $injectedClass = $section }}
+                    {{ with $page.Params.cssClass }}
+                        {{ $injectedClass = $page.Params.cssClass }}
+                    {{ else }}
+                        {{ $injectedClass = $section }}
+                    {{ end }}
                 {{ end }}
             {{ end }}
         {{ end }}
@@ -39,12 +44,12 @@
     
 
     <aside class="book-menu">
-      <div class="book-menu-content {{ $injectedClass }}">
+      <div class="book-menu-content">
         {{ template "menu" . }} <!-- Left menu Content -->
       </div>
     </aside>
 
-    <div class="book-page {{ $injectedClass }}">
+    <div class="book-page">
       <header class="book-header">
         {{ template "header" . }} <!-- Mobile layout header -->
       </header>
@@ -53,7 +58,7 @@
       {{ template "main" . }} <!-- Page Content -->
       {{ partial "docs/inject/content-after" . }}
 
-      <footer class="book-footer {{ $injectedClass }}">
+      <footer class="book-footer">
         {{ template "footer" . }} <!-- Footer under page content -->
         {{ partial "docs/inject/footer" . }}
       </footer>
@@ -65,7 +70,7 @@
 
     {{ if default true (default .Site.Params.BookToC .Params.BookToC) }}
     <aside class="book-toc">
-      <div class="book-toc-content {{ $injectedClass }}">
+      <div class="book-toc-content">
         {{ template "toc" . }} <!-- Table of Contents -->
       </div>
     </aside>
