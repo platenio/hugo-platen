@@ -4,7 +4,8 @@
   {{ partial "docs/html-head" . }}
   {{ partial "docs/inject/head" . }}
 </head>
-<body dir="{{ default "ltr" .Site.Language.LanguageDirection }}">
+{{ $injectedClass := partial "platen/getCssClass.html" . }}
+<body dir="{{ default "ltr" .Site.Language.LanguageDirection }}" class="{{ $injectedClass }}">
   <input type="checkbox" class="hidden toggle" id="menu-control" />
   <input type="checkbox" class="hidden toggle" id="toc-control" />
   <main class="container flex">
