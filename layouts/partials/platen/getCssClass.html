@@ -1,0 +1,32 @@
+{{/*
+    This injects a class based on either cssClass in the _index.md or the filepath.
+    (The cssClass override is especially useful when the filepath name isn't a valid CSS class name)
+*/}}
+{{- $injectedClass :=  "" -}}
+{{- $currentLink := .Permalink -}}
+{{- $currentParams := .Params -}}
+{{- $bookSection := default "docs" .Site.Params.BookSection -}}
+{{- if eq $bookSection "*" -}}
+    {{- $bookSection = "/" -}}
+{{- end -}}
+{{- with .Site.GetPage $bookSection -}}
+    {{- range (where .Pages "Params.bookhidden" "ne" true) -}}
+        {{- $page := . -}}
+        {{- $filePath := replace .File.Path "\\" "/" -}}
+        {{- $parts := split $filePath "/" -}}
+        {{- $section := index $parts 1 -}}
+        {{- $section = replace $section ".md" "" -}}
+        {{- if in $currentLink $section -}}
+            {{- with $currentParams.cssClass -}}
+                {{- $injectedClass = $currentParams.cssClass -}}
+            {{- else -}}
+                {{- with $page.Params.cssClass -}}
+                    {{- $injectedClass = $page.Params.cssClass -}}
+                {{- else -}}
+                    {{- $injectedClass = $section -}}
+                {{- end -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- return $injectedClass -}}
