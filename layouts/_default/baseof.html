@@ -2,6 +2,7 @@
 <html lang="{{ default .Site.Language.Lang .Site.LanguageCode  }}" dir="{{ default "ltr" .Site.Language.LanguageDirection }}">
 <head>
   {{ partial "docs/html-head" . }}
+  {{ partial "platen/platen-head" . }}
   {{ partial "docs/inject/head" . }}
 </head>
 {{ $injectedClass := partial "platen/getCssClass.html" . }}
