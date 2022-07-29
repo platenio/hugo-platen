@@ -1,0 +1,2 @@
+{{- $platenStyles := resources.Get "platen.scss" | resources.ExecuteAsTemplate "platen.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $platenStyles.RelPermalink }}" {{ template "integrity" $platenStyles }}>

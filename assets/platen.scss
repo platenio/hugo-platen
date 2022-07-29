@@ -1,0 +1,9 @@
+.book-columns {
+    &.flatten-in-mobile {
+        flex-direction: column;
+
+        @media (min-width:56rem) {
+            flex-direction: row;
+        }
+    }
+}
