@@ -27,7 +27,7 @@
     {{- $parentPath := path.Dir $filePath -}}
     {{- $parts := split $filePath "/" -}}
     {{- $isTopLevelFile := eq (len $parts) 1 -}}
-    {{- range $section := $parts -}}
+    {{- range $index, $section := $parts -}}
         {{- if (in $section ".md") -}} {{/* Process the leaf file */}}
             {{- if (ne $section "_index.md") -}}
                 {{- if $isTopLevelFile -}}
@@ -43,7 +43,8 @@
                 {{- end -}}
             {{- end -}}
         {{- else -}} {{/* Process an ancestor section */}}
-            {{- with $.Site.GetPage $section -}} {{/* The section has an _index.md */}}
+            {{- $segment := printf "/%s" (delimit $parts "/" $index) -}}
+            {{- with $.Site.GetPage $segment -}} {{/* The section has an _index.md */}}
                 {{- with .Params.cssClass -}}
                     {{- $injectedClass = printf "%s %s" $injectedClass . -}}
                 {{- else -}}
